@@ -1,2 +1,1 @@
-# stock-control
-I created this application to help the book store of my church, I created an app using tkinter and integrated it with a local postgreSQL data base, since its a small DB I just created it and set for personal use in the PC we have in the book store
+Aplicação desenvolvida como um projeto de extensão do meu curso de Analise e Desenvolvimento de Sistemas. Trata-se de uma aplicação desenvolvida em Python e integrada com um banco de dados local para gerenciar e fazer o controle do estoque da Livraria da igreja Batista da Lagoinha em Conselheiro Lafaiete.

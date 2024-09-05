@@ -1,9 +1,10 @@
+# Importar bibliotecas  
 import pg8000
 import tkinter as tk
 from tkinter import messagebox
 
 # Configurações de conexão com o banco de dados
-DB_HOST = "127.0.0.1"
+DB_HOST = "127.0.0.1" # Endereço local do Banco
 DB_NAME = "Lagoinha Book Store"
 DB_USER = "postgres"
 DB_PASSWORD = "31415"
@@ -93,7 +94,7 @@ def fazer_devolucao():
     conn.close()
     limpar_campos()
 
-# Função para visualizar o estoque de forma macro
+# Função para visualizar o estoque de forma macro com barra de rolagem
 def visualizar_estoque():
     conn = connect_db()
     cursor = conn.cursor()
@@ -110,7 +111,29 @@ def visualizar_estoque():
         total_estoque += item_total
     
     estoque_detalhes += f"Valor Total do Estoque: R$ {total_estoque:.2f}"
-    messagebox.showinfo("Estoque Geral", estoque_detalhes)
+    
+    # Criando uma nova janela para exibir o estoque
+    top = tk.Toplevel(root)
+    top.title("Estoque Completo")
+
+    # Adicionando um frame para o Text widget e a barra de rolagem
+    text_frame = tk.Frame(top)
+    text_frame.pack(fill="both", expand=True)
+    
+    # Criando a barra de rolagem
+    scrollbar = tk.Scrollbar(text_frame)
+    scrollbar.pack(side="right", fill="y")
+
+    # Criando o Text widget
+    text_widget = tk.Text(text_frame, yscrollcommand=scrollbar.set, wrap="word", font=("Arial", 12))
+    text_widget.pack(fill="both", expand=True)
+    
+    # Configurando a barra de rolagem para o Text widget
+    scrollbar.config(command=text_widget.yview)
+    
+    # Inserindo os detalhes do estoque no Text widget
+    text_widget.insert(tk.END, estoque_detalhes)
+    text_widget.config(state="disabled")  # Tornando o Text widget somente leitura
 
     conn.close()
 
